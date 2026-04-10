@@ -12,6 +12,9 @@ virtualFolder:
       files:
         - path: STARTUP.A51
         - path: main.c
+        - path: ds1302.c
+        - path: iic.c
+        - path: onewire.c
       folders: []
 dependenceList: []
 outDir: build
@@ -24,7 +27,12 @@ targets:
       incList:
         - ../../../../Keil_C51/C51/INC/STC
       libList: []
-    excludeList: []
+    excludeList:
+      - <virtual_root>/Source Group 1/ds1302.c
+      - <virtual_root>/Source Group 1/iic.c
+      - <virtual_root>/Source Group 1/onewire.c
+    settings:
+      debugger: unknown
     toolchain: Keil_C51
     toolchainConfigMap:
       Keil_C51:
