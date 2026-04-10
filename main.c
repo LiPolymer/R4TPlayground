@@ -1,4 +1,5 @@
 #include <STC15F2K60S2.H>
+#include <ds1302.c>
 #define true 1
 #define false 0 
 
@@ -78,7 +79,7 @@ void segDaemon() {
 
 /* Keyboard Handler */
 
-int btnDat[4][4] = {0}; 
+int xdata btnDat[4][4] = {0}; 
 
 void btnScanCol(char col) {
     if (!P30) {
@@ -133,6 +134,8 @@ void setBtnStat(char x, char y, int stat){
 int getBtnStat(char x, char y) {
     return btnDat[x][y];
 }
+
+
 
 void Update(void) {
     char nu = getBtnStat(2,3)/2000;

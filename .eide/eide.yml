@@ -28,9 +28,9 @@ targets:
         - ../../../../Keil_C51/C51/INC/STC
       libList: []
     excludeList:
-      - <virtual_root>/Source Group 1/ds1302.c
       - <virtual_root>/Source Group 1/iic.c
       - <virtual_root>/Source Group 1/onewire.c
+      - <virtual_root>/Source Group 1/ds1302.c
     settings:
       debugger: unknown
     toolchain: Keil_C51

@@ -4,6 +4,10 @@
 		中对单片机时钟频率的要求，进行代码调试和修改。
 */								
 
+#define RST	P13
+#define SCK	P17
+#define SDA	P23
+
 //
 void Write_Ds1302(unsigned  char temp) 
 {
@@ -50,4 +54,35 @@ unsigned char Read_Ds1302_Byte ( unsigned char address )
 	SDA=0;	_nop_();
 	SDA=1;	_nop_();
 	return (temp);			
+}
+
+
+typedef struct sTime {
+	unsigned char s;
+	unsigned char min;
+	unsigned char hr;
+} Time;
+
+unsigned char transformTimeSlotData(unsigned char timeSlot) {
+	return ((timeSlot / 10) << 4) + (timeSlot % 10);
+}
+
+unsigned char transformBackTimeSlotData(unsigned char timeData) {
+	return ((timeData >> 4) * 10) + (timeData & 0x0f);
+}
+
+void setDsTime(Time time) {
+	Write_Ds1302_Byte(0x8e, 0x00);
+	Write_Ds1302_Byte(0x80, transformTimeSlotData(time.s));
+	Write_Ds1302_Byte(0x82, transformTimeSlotData(time.min));
+	Write_Ds1302_Byte(0x84, transformTimeSlotData(time.hr));
+	Write_Ds1302_Byte(0x8e, 0x80);
+}
+
+Time getDsTime() {
+	Time rs;
+	rs.s = transformBackTimeSlotData(Read_Ds1302_Byte(0x81));
+	rs.min = transformBackTimeSlotData(Read_Ds1302_Byte(0x83));
+	rs.hr = transformBackTimeSlotData(Read_Ds1302_Byte(0x85));
+	return rs;
 }
