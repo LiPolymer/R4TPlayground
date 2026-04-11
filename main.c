@@ -1,5 +1,5 @@
 #include <STC15F2K60S2.H>
-#include <ds1302.c>
+#include <ds1302.h>
 #define true 1
 #define false 0 
 
@@ -136,10 +136,18 @@ int getBtnStat(char x, char y) {
 }
 
 
+void Init() {
+    Time t;
+    t.s = 0;
+    t.min = 0;
+    t.hr = 0;
+    setDsTime(t);
+}
 
-void Update(void) {
+void Update() {
     char nu = getBtnStat(2,3)/2000;
-    segDisplay(0,segNumberLut[nu<9 ? nu : 8]);
+    segDisplay(1,segNumberLut[nu<9 ? nu : 8]);
+    segDisplay(0,segNumberLut[getDsTime().s % 10]);
 }
 
 
@@ -147,6 +155,7 @@ void Update(void) {
 void main() {
     cleanSegBuffer();
     cleanMatrixScanner();
+    Init();
     setLed(0xFF);
     while (true) {
         /* main cycle */

@@ -3,7 +3,8 @@
 	2. 	参赛选手可以自行编写相关代码或以该代码为基础，根据所选单片机类型、运行速度和试题
 		中对单片机时钟频率的要求，进行代码调试和修改。
 */								
-
+#include <STC15F2K60S2.H>
+#include "ds1302.h"
 #define RST	P13
 #define SCK	P17
 #define SDA	P23
@@ -56,13 +57,6 @@ unsigned char Read_Ds1302_Byte ( unsigned char address )
 	return (temp);			
 }
 
-
-typedef struct sTime {
-	unsigned char s;
-	unsigned char min;
-	unsigned char hr;
-} Time;
-
 unsigned char transformTimeSlotData(unsigned char timeSlot) {
 	return ((timeSlot / 10) << 4) + (timeSlot % 10);
 }
@@ -85,4 +79,8 @@ Time getDsTime() {
 	rs.min = transformBackTimeSlotData(Read_Ds1302_Byte(0x83));
 	rs.hr = transformBackTimeSlotData(Read_Ds1302_Byte(0x85));
 	return rs;
+}
+
+void initDs() {
+	Write_Ds1302_Byte(0x8e, 0x80);
 }

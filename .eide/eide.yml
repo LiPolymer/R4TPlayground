@@ -15,6 +15,7 @@ virtualFolder:
         - path: ds1302.c
         - path: iic.c
         - path: onewire.c
+        - path: ds1302.h
       folders: []
 dependenceList: []
 outDir: build
@@ -30,7 +31,6 @@ targets:
     excludeList:
       - <virtual_root>/Source Group 1/iic.c
       - <virtual_root>/Source Group 1/onewire.c
-      - <virtual_root>/Source Group 1/ds1302.c
     settings:
       debugger: unknown
     toolchain: Keil_C51
